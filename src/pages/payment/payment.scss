@@ -1,0 +1,27 @@
+page-payment {
+  .button-group {
+    display: flex;
+    padding: 5px;
+
+    button {
+      width: 50%;
+    }
+
+  }
+
+  .divider {
+
+    h2 {
+      font-weight: 600;
+    }
+
+    .balance {
+      font-weight: 600;
+      padding-right: 8px;
+    }
+
+    display: flex;
+    justify-content: space-between;
+  }
+
+}

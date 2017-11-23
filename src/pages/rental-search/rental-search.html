@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Rental Search</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="content-container">
+    <div class="map-container">
+      <agm-map
+        *ngIf="currentLocation | async"
+        [latitude]="(currentLocation | async).lat "
+        [longitude]="(currentLocation | async).lng"
+        [maxZoom]="16"
+        [fitBounds]="bounds | async"
+        [styles]="mapStyles"
+        [zoomControl]="false"
+        [streetViewControl]="false"
+        gestureHandling="none">
+        <agm-marker
+          *ngIf="originCoords | async"
+          [latitude]="(originCoords | async).lat"
+          [longitude]="(originCoords | async).lng">
+        </agm-marker>
+        <agm-marker
+          *ngIf="destinationCoords | async"
+          [latitude]="(destinationCoords | async).lat"
+          [longitude]="(destinationCoords | async).lng">
+        </agm-marker>
+      </agm-map>
+    </div>
+    <div class="form-container">
+      <form
+        #form="ngForm"
+        (ngSubmit)="rentalSearch(form)"
+        class="search-form">
+        <ion-item *ngIf="!(fetchingLocation | async)" id="origin-item">
+          <ion-icon name="pin" item-start></ion-icon>
+          <ion-label stacked>Origin</ion-label>
+          <ion-input
+            [placeholder]="(fetchingAddress | async) ? 'Fetching your location...' : 'Enter your start location'"
+            id="origin"
+            type="text"
+            name="origin"
+            [ngModel]="origin | async"
+            required
+            (click)="openOriginModal($event)"
+            (touchstart)="openOriginModal($event)"
+            [disabled]="fetchingLocation | async">
+          </ion-input>
+          <ion-spinner *ngIf="fetchingAddress | async" item-end></ion-spinner>
+        </ion-item>
+        <ion-item id="destination-item">
+          <ion-icon name="pin" item-start></ion-icon>
+          <ion-label stacked>Destination</ion-label>
+          <ion-input
+            placeholder="Enter your destination"
+            id="destination"
+            type="text"
+            name="destination"
+            ngModel
+            (click)="openDestinationModal($event)"
+            (touchstart)="openDestinationModal($event)"
+            [ngModel]="destination | async">
+          </ion-input>
+        </ion-item>
+        <img
+          id="switch"
+          (click)="switch()"
+          src="assets/imgs/switch.svg" alt="">
+        <ion-item id="time-target-item">
+          <ion-icon name="arrow-round-forward" item-start></ion-icon>
+          <ion-segment
+            [ngModel]="timeTarget | async"
+            (ngModelChange)="onTimeTargetChange($event)"
+            name="timeTarget">
+            <ion-segment-button value="DEPART">Depart at</ion-segment-button>
+            <ion-segment-button value="ARRIVE">Arrive by</ion-segment-button>
+          </ion-segment>
+        </ion-item>
+        <ion-item id="time-item">
+          <ion-icon name="clock" item-start></ion-icon>
+          <ion-datetime
+            displayFormat="MMM DD, h:mm A"
+            [ngModel]="(time | async).toISOString()"
+            (ngModelChange)="onTimeChange($event)"
+            name="time"></ion-datetime>
+        </ion-item>
+        <div id="button-container-area" class="button-container">
+          <button
+            padding
+            ion-button
+            block
+            [disabled]="!form.valid"
+            type="submit">Find bike rentals
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ion-content>

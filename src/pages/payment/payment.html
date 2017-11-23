@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Payment</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item-divider class="divider">
+      <h2 item-start>Balance</h2>
+      <span item-end class="balance">{{ balance | currency:'USD':true }}</span>
+    </ion-item-divider>
+    <ion-item *ngIf="prepaidCredit">
+      <span>Pre-paid credit</span>
+      <span item-end>{{ prepaidCredit | currency:'USD':true }}</span>
+    </ion-item>
+    <ion-item *ngIf="earnedRewards">
+      <span>Earned rewards</span>
+      <span item-end>{{ earnedRewards | currency:'USD':true }}</span>
+    </ion-item>
+    <ion-item *ngIf="promotional">
+      <span>Promotional</span>
+      <span item-end>{{ promotional | currency:'USD':true }}</span>
+    </ion-item>
+    <div class="button-group">
+      <button ion-button (click)="onAddMoney()">Add Money</button>
+      <button ion-button (click)="onWithdrawMoney()">Withdraw Money</button>
+    </div>
+    <ion-item-divider class="divider">
+      <h2 item-start>Payment Method</h2>
+    </ion-item-divider>
+    <button ion-item no-lines (click)="editPaymentMethod()">
+      <ion-icon name="card" item-left></ion-icon>
+      *2976
+    </button>
+    <ion-item-divider class="divider">
+      <h2 item-start>Transactions</h2>
+    </ion-item-divider>
+    <ion-list>
+      <ion-item *ngFor="let transaction of transactions">
+        <h2>{{ transaction.description }}</h2>
+        <p>{{ transaction.date | date:'mediumDate'}}</p>
+        <span item-end [ngClass]="{positive: isPositive(transaction)}">{{ transaction.amount | currency:'USD':true }}</span>
+      </ion-item>
+    </ion-list>
+  </ion-list>
+</ion-content>

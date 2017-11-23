@@ -1,0 +1,64 @@
+<ion-menu [content]="nav">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons start>
+        <button ion-button icon-only menuToggle>
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item-group>
+        <button
+          ion-item
+          (click)="onLoad(rentalSearchPage)">
+          <ion-icon name="search" item-left></ion-icon>
+          Rental Search
+        </button>
+        <button
+          ion-item
+          (click)="onLoad(mapPage)">
+          <ion-icon name="pin" item-left></ion-icon>
+          Map
+        </button>
+        <button
+          ion-item
+          *ngIf="isAuthenticated"
+          (click)="onLoad(tripsPage)">
+          <ion-icon name="bicycle" item-left></ion-icon>
+          Trips
+        </button>
+        <button
+          ion-item
+          *ngIf="isAuthenticated"
+          (click)="onLoad(paymentPage)">
+          <ion-icon name="card" item-left></ion-icon>
+          Payment
+        </button>
+      </ion-item-group>
+      <ion-item-group>
+        <ion-item-divider color="light"></ion-item-divider>
+        <button
+          ion-item
+          (click)="onLogIn()"
+          *ngIf="!isAuthenticated">
+          <ion-icon name="log-in" item-left></ion-icon>
+          Log In / Sign Up
+        </button>
+
+        <button
+          ion-item
+          (click)="onLogout()"
+          *ngIf="isAuthenticated">
+          <ion-icon name="log-in" item-left></ion-icon>
+          Logout
+        </button>
+      </ion-item-group>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav [root]="rootPage" #nav></ion-nav>

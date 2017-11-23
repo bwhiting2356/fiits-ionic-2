@@ -1,0 +1,61 @@
+<!--
+  Generated template for the TripDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Trip Details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="content-container">
+    <div class="map-container">
+      <agm-map
+        [zoom]="16"
+        [zoomControl]="false"
+        [fitBounds]="bounds"
+        [streetViewControl]="false"
+        [styles]="mapStyles"
+        [zoomControl]="false"
+        [streetViewControl]="false">
+        <agm-marker
+          [iconUrl]="'assets/imgs/origin.svg'"
+          [latitude]="trip.origin.coords.lat"
+          [longitude]="trip.origin.coords.lng">
+        </agm-marker>
+        <agm-marker
+          [iconUrl]="'assets/imgs/station.svg'"
+          [latitude]="trip.station1.coords.lat"
+          [longitude]="trip.station1.coords.lng">
+        </agm-marker>
+        <agm-marker
+          [iconUrl]="'assets/imgs/station.svg'"
+          [latitude]="trip.station2.coords.lat"
+          [longitude]="trip.station2.coords.lng">
+        </agm-marker>
+        <agm-marker
+          [iconUrl]="'assets/imgs/destination.svg'"
+          [latitude]="trip.destination.coords.lat"
+          [longitude]="trip.destination.coords.lng">
+        </agm-marker>
+      </agm-map>
+    </div>
+    <div class="details-and-button">
+      <trip-details [result]="trip"></trip-details>
+      <div class="button-container">
+        <button
+          padding
+          ion-button
+          block
+          type="submit">Book reservation package
+        </button>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Search Result</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-spinner class="center-spinner" *ngIf="!(result | async)"></ion-spinner>
+  <div *ngIf="(result | async)" class="content-container">
+    <div class="map-container">
+      <agm-map
+        [zoom]="16"
+        [zoomControl]="false"
+        [fitBounds]="bounds | async"
+        [streetViewControl]="false"
+        [styles]="mapStyles"
+        [zoomControl]="false"
+        [streetViewControl]="false">
+        <agm-marker
+          [iconUrl]="'assets/imgs/origin.svg'"
+          [latitude]="(result | async).origin.coords.lat"
+          [longitude]="(result | async).origin.coords.lng">
+        </agm-marker>
+        <agm-marker
+          [iconUrl]="'assets/imgs/station.svg'"
+          [latitude]="(result | async).station1.coords.lat"
+          [longitude]="(result | async).station1.coords.lng">
+        </agm-marker>
+        <agm-marker
+          [iconUrl]="'assets/imgs/station.svg'"
+          [latitude]="(result | async).station2.coords.lat"
+          [longitude]="(result | async).station2.coords.lng">
+        </agm-marker>
+        <agm-marker
+          [iconUrl]="'assets/imgs/destination.svg'"
+          [latitude]="(result | async).destination.coords.lat"
+          [longitude]="(result | async).destination.coords.lng">
+        </agm-marker>
+      </agm-map>
+    </div>
+    <div class="results-and-button">
+      <trip-details [result]="result | async"></trip-details>
+      <div class="button-container">
+        <button
+          padding
+          ion-button
+          block
+          type="submit">Book reservation package
+        </button>
+      </div>
+    </div>
+  </div>
+</ion-content>

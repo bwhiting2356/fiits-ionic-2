@@ -1,0 +1,33 @@
+page-trips {
+
+  .trip-item {
+    agm-map {
+      height: 150px;
+    }
+
+    .info-container {
+      padding: 5px;
+      display: grid;
+      grid-template-areas:
+      "date-time price"
+      "miles-minutes price"
+    }
+
+    .date-time {
+      display: inline-block;
+      font-weight: 600;
+      grid-area: date-time;
+    }
+
+    .price {
+      display: inline-block;
+      font-weight: 600;
+      grid-area: price;
+      text-align: right;
+    }
+
+    .miles-minutes {
+      grid-area: miles-minutes;
+    }
+  }
+}

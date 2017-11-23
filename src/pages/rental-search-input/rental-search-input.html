@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="onCancel()">
+        Cancel
+      </button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-searchbar
+    #search
+    clearInput
+    placeholder="Address or place name"
+    [(ngModel)]="query"
+    (ionInput)="updateSearch()"
+    (ionCancel)="dismiss()">
+  </ion-searchbar>
+  <ion-spinner class="center-spinner" *ngIf="showSpinner"></ion-spinner>
+  <div class="center-message" *ngIf="showMessage">Enter a place name or address</div>
+  <ion-list>
+    <ion-item *ngFor="let item of autocompleteItems" tappable (click)="chooseItem(item)">
+      <ion-icon name="pin" item-start></ion-icon>
+      {{ item.description }}
+    </ion-item>
+  </ion-list>
+</ion-content>

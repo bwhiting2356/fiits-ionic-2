@@ -1,0 +1,46 @@
+<ion-card
+  class="trip-item"
+  (click)="onCardClick($event)"
+  [class.next-trip]="isNextTrip">
+  <ion-card-header *ngIf="isNextTrip" >
+    Next Trip
+  </ion-card-header>
+  <agm-map
+    [latitude]="trip.origin.coords.lat"
+    [longitude]="trip.origin.coords.lng"
+    [scrollwheel]="false"
+    [fitBounds]="bounds"
+    [zoomControl]="false"
+    [streetViewControl]="false"
+    gestureHandling="none">
+    <agm-marker
+      [iconUrl]="'assets/imgs/origin.svg'"
+      [latitude]="trip.origin.coords.lat"
+      [longitude]="trip.origin.coords.lng">
+    </agm-marker>
+    <!-- TODO: add polylines from directions -->
+    <agm-marker
+      [iconUrl]="'assets/imgs/station.svg'"
+      [latitude]="trip.station1.coords.lat"
+      [longitude]="trip.station1.coords.lng">
+    </agm-marker>
+    <agm-marker
+      [iconUrl]="'assets/imgs/station.svg'"
+      [latitude]="trip.station2.coords.lat"
+      [longitude]="trip.station2.coords.lng">
+    </agm-marker>
+    <agm-marker
+      [iconUrl]="'assets/imgs/destination.svg'"
+      [latitude]="trip.destination.coords.lat"
+      [longitude]="trip.destination.coords.lng">
+    </agm-marker>
+  </agm-map>
+  <div class="info-container">
+    <div class="date-time">{{ trip.departureTime | date:'MMM d, h:mm a' }} - {{ trip.arrivalTime | date:'h:mm a'}}</div>
+    <div class="price" [ngClass]="{positive: totalPrice > 0}">{{ totalPrice | currency:'USD':true }}</div>
+    <p class="miles-minutes">
+      {{ totalDistance | distance }}
+      <span class="middot">&#8226;</span>
+      {{ totalTime | time }}</p>
+  </div>
+</ion-card>
